@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
 
     <title>Gold Clicker</title>
 </head>
+
 <body>
     <section>
         <div class="main unslectable">
@@ -29,10 +31,18 @@
                     </div>
                     <div id="perk2">
                     </div>
+                    <div id="perk3">
+                    </div>
+                    <div id="perk4">
+                    </div>
+                    <div id="perk5">
+                    </div>
+                    <div id="perk6">
+                    </div>
                 </div>
             </div>
             <div class="right unslectable">
-                <div class="upgrade unslectable" onclick="upgrade.purchase(0)">
+                <div class="upgrade unslectable" onclick="upgrade.purchase(0)" title="Starting Income: 1">
                     <div class="left-section unslectable">
                         <img src="cursor.webp" class="upgrade-img">
                     </div>
@@ -47,7 +57,7 @@
                         <p><span id="upgrade-amount0">0</span></p>
                     </div>
                 </div>
-                <div class="upgrade unslectable" onclick="upgrade.purchase(1)">
+                <div class="upgrade unslectable" onclick="upgrade.purchase(1)" title="Starting Income: 3">
                     <div class="left-section unslectable">
                         <img src="shovel.png" class="upgrade-img">
                     </div>
@@ -62,7 +72,7 @@
                         <p><span id="upgrade-amount1">0</span></p>
                     </div>
                 </div>
-                <div class="upgrade unslectable" onclick="upgrade.purchase(2)">
+                <div class="upgrade unslectable" onclick="upgrade.purchase(2)" title="Starting Income: 5">
                     <div class="left-section unslectable">
                         <img src="mining_cart.jpg" class="upgrade-img">
                     </div>
@@ -77,7 +87,7 @@
                         <p><span id="upgrade-amount2">0</span></p>
                     </div>
                 </div>
-                <div class="upgrade unslectable" onclick="upgrade.purchase(3)">
+                <div class="upgrade unslectable" onclick="upgrade.purchase(3)" title="Starting Income: 7">
                     <div class="left-section unslectable">
                         <img src="mountain.jpg" class="upgrade-img">
                     </div>
@@ -92,7 +102,7 @@
                         <p><span id="upgrade-amount3">0</span></p>
                     </div>
                 </div>
-                <div class="upgrade unslectable" onclick="upgrade.purchase(4)">
+                <div class="upgrade unslectable" onclick="upgrade.purchase(4)" title="Starting Income: 9">
                     <div class="left-section unslectable">
                         <img src="bank.png" class="upgrade-img">
                     </div>
@@ -107,7 +117,7 @@
                         <p><span id="upgrade-amount4">0</span></p>
                     </div>
                 </div>
-                <div class="upgrade unslectable" onclick="upgrade.purchase(5)">
+                <div class="upgrade unslectable" onclick="upgrade.purchase(5)" title="Starting Income: 11">
                     <div class="left-section unslectable">
                         <img src="safe.png" class="upgrade-img">
                     </div>
@@ -122,11 +132,41 @@
                         <p><span id="upgrade-amount5">0</span></p>
                     </div>
                 </div>
+                <div class="upgrade unslectable" onclick="upgrade.purchase(6)" title="Starting Income: 15">
+                    <div class="left-section unslectable">
+                        <img src="gold-coin.png" class="upgrade-img">
+                    </div>
+                    <div class="mid-section unslectable">
+                        <h4>Gold Coin</h4>
+                        <div class="cost-info unslectable">
+                            <p>Cost: <span id="upgrade-cost6">0</span></p>
+                            <img src="gold.png" class="gold-img">
+                        </div>
+                    </div>
+                    <div class="right-section unslectable">
+                        <p><span id="upgrade-amount6">0</span></p>
+                    </div>
+                </div>
+                <div class="upgrade unslectable" onclick="upgrade.purchase(7)" title="Starting Income: 20">
+                    <div class="left-section unslectable">
+                        <img src="rocket.png" class="upgrade-img">
+                    </div>
+                    <div class="mid-section unslectable">
+                        <h4>Rocket</h4>
+                        <div class="cost-info unslectable">
+                            <p>Cost: <span id="upgrade-cost7">0</span></p>
+                            <img src="gold.png" class="gold-img">
+                        </div>
+                    </div>
+                    <div class="right-section unslectable">
+                        <p><span id="upgrade-amount7">0</span></p>
+                    </div>
+                </div>
             </div>
             <div class="bottom">
                 <div class="comments">
-                    <p>Version: 4.000</p>
-                    <p>Release Notes: Added Super Upgrade and 1 perk</p>
+                    <p>Version: 5.100</p>
+                    <p>Release Notes: Added new perks and fixed bug</p>
                     <button class="save" onclick="saveGame()">Save Game</button>
                     <button class="reset" onclick="resetGame()">Reset Game</button>
                 </div>
@@ -134,7 +174,9 @@
                     <h3>Super</h3>
                     <h5>Hover over box to show description</h5>
                     <div class="super-main">
-                        <div class="super-click" title="This super upgrade will grant you +10000 Click Value Cost: 1000000" onclick="super_upgrade.purchase(0)">
+                        <div class="super-click"
+                            title="This super upgrade will grant you +10000 Click Value Cost: 1000000"
+                            onclick="super_upgrade.purchase(0)">
                             <p>Super Click</p>
                             <img src="cursor.webp">
                         </div>
@@ -142,7 +184,8 @@
                             <p>Super Gold</p>
                             <img src="gold.png">
                         </div>
-                        <div class="super-click1" title="This super upgrade will grant you +100000 Click Cost: 10000000" onclick="super_upgrade.purchase(2)">
+                        <div class="super-click1" title="This super upgrade will grant you +100000 Click Cost: 10000000"
+                            onclick="super_upgrade.purchase(2)">
                             <p>Super Click 1</p>
                             <img src="cursor.webp">
                         </div>
@@ -152,9 +195,13 @@
                         </div>
                     </div>
                 </div>
+                <div class="display">
+                    <p>Coming Soon</p>
+                </div>
             </div>
         </div>
     </section>
     <script src="main.js"></script>
 </body>
+
 </html>
