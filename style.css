@@ -1,0 +1,278 @@
+body {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: rgba(1, 13, 39, 0.674);
+    color: white;
+}
+
+
+.left {
+    display: flex;
+    margin: 20px;
+    margin-left: 10px;
+    float: left;
+    padding: 1px;
+    width: fit-content;
+    height: fit-content;
+    gap: 30px
+}
+
+.center {
+    width: 110px;
+    height: fit-content;
+    border: 5px solid gold;
+    background-color: rgba(255, 217, 0, 0.276);
+    border-radius: 5px;
+    text-align: center;
+    justify-content: center;
+}
+
+#perk1 img {
+    width: 32px;
+}
+
+#perk1 img:hover {
+    transform: scale(1.02);
+}
+
+#perk2 img {
+    width: 32px;
+}
+
+#perk2 img:hover {
+    transform: scale(1.02);
+}
+
+#perk3 img {
+    width: 32px;
+}
+
+#perk3 img:hover {
+    transform: scale(1.02);
+}
+
+.clicker {
+    float: right;
+    width: fit-content;
+    height: fit-content;
+    border: 5px solid gold;
+    background-color: rgba(255, 217, 0, 0.276);
+    border-radius: 5px;
+}
+
+.clicker .img {
+    height: 300px;
+}
+
+.clicker .img:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.stats {
+    width: 200px;
+    padding: 40px;
+    float: left;
+    border: 5px solid gold;
+    background-color: rgba(255, 217, 0, 0.276);
+    text-align: center;
+    border-radius: 5px;
+}
+
+.stats p {
+    font-size: 24px;
+}
+
+.right {
+    margin: 20px;
+    margin-right: 5px;
+    width: fit-content;
+    height: 80vh;
+    padding: 10px;
+    border-radius: 5px;
+    border: 5px solid gold;
+    float: right;
+    overflow-y: scroll;
+}
+
+.left h3 {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
+.left .img {
+    width: 400px;
+}
+
+
+.upgrade {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 330px;
+    height: 60px;
+    border: 4px solid gold;
+    background-color: rgba(255, 217, 0, 0.276);
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.upgrade:hover {
+    transform: scale(1.01);
+}
+
+.cost-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.mid-section h4 {
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.mid-section p {
+    margin: 0;
+}
+
+.upgrade-img {
+    width: 55px;
+}
+
+.gold-img {
+    width: 20px;
+    height: 20px;
+}
+
+.unslectable {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.bottom {
+    display: flex;
+    float: left;
+    margin: 10px;
+    gap: 30px;
+}
+
+.comments {
+    justify-content: center;
+    text-align: center;
+    width: 280px;
+    height: 100px;
+    border: 5px solid gold;
+    border-radius: 5px;
+    font-weight: bold;
+    background-color: rgba(255, 217, 0, 0.276);
+}
+
+.super {
+    justify-content: center;
+    text-align: center;
+    width: 400px;
+    height: 150px;
+    background-color: rgba(255, 217, 0, 0.276);
+    border: 5px solid gold;
+    border-radius: 5px;
+}
+
+.super h3 {
+    margin: 0;
+    padding: 0;
+    padding-top: 5px;
+}
+
+.super-main {
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    padding: 5px;
+}
+
+.super-main p {
+    margin: 0px 10px 0px 10px;
+    font-size: small;
+}
+
+.super h5 {
+    margin: 0;
+    padding: 0;
+}
+
+.super-main img {
+    width: 32px;
+}
+
+.super-click {
+    border: 2px solid gold;
+    margin: 0px 3px 0px 3px
+}
+
+.super-gold {
+    border: 2px solid gold;
+    margin: 0px 3px 0px 3px
+}
+
+.super-click1 {
+    border: 2px solid gold;
+    margin: 0px 3px 0px 3px
+}
+
+.super-gold1 {
+    border: 2px solid gold;
+    margin: 0px 3px 0px 3px
+}
+
+.super-click:hover {
+    transform: scale(1.02);
+}
+
+.super-gold:hover {
+    transform: scale(1.02);
+}
+
+.super-click1:hover {
+    transform: scale(1.02);
+}
+
+.super-gold1:hover {
+    transform: scale(1.02);
+}
+
+.save {
+    border-radius: 5px;
+    background-color: rgba(255, 217, 0, 0.276);
+    color: white;
+    border: 4px solid gold;
+    margin-top: 5px;
+    margin-right: 3px;
+}
+
+.save:hover {
+    transform: scale(1.02);
+}
+
+.reset {
+    border-radius: 5px;
+    background-color: rgba(255, 217, 0, 0.276);
+    color: white;
+    margin-top: 5px;
+    border: 4px solid gold;
+    margin-left: 3px;
+}
+
+.reset:hover {
+    transform: scale(1.02);
+}
+
+.stats-2 {
+    margin-left: 3px;
+}
