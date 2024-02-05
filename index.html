@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="gold.png" type="image/icon type">
+
+    <title>Gold Clicker</title>
+</head>
+<body>
+    <section>
+        <div class="main unslectable">
+            <div class="left unslectable">
+                <div class="stats unslectable">
+                    <h2>Stats</h2>
+                    <p id="click-value">1</p>
+                    <p id="click-total">0</p>
+                    <p id="gold-per-second">0</p>
+                    <p id="total-gold">0</p>
+                </div>
+                <div class="clicker unslectable">
+                    <h3>Gold: <span id="gold">0</span></h3>
+                    <img class="img" src="gold.png" onclick="game.click(game.clickValue)">
+                </div>
+                <div class="center unslectable">
+                    <p>Perks</p>
+                    <div id="perk1">
+                    </div>
+                    <div id="perk2">
+                    </div>
+                </div>
+            </div>
+            <div class="right unslectable">
+                <div class="upgrade unslectable" onclick="upgrade.purchase(0)">
+                    <div class="left-section unslectable">
+                        <img src="cursor.webp" class="upgrade-img">
+                    </div>
+                    <div class="mid-section unslectable">
+                        <h4>Clicker</h4>
+                        <div class="cost-info unslectable">
+                            <p>Cost: <span id="upgrade-cost0">0</span></p>
+                            <img src="gold.png" class="gold-img">
+                        </div>
+                    </div>
+                    <div class="right-section unslectable">
+                        <p><span id="upgrade-amount0">0</span></p>
+                    </div>
+                </div>
+                <div class="upgrade unslectable" onclick="upgrade.purchase(1)">
+                    <div class="left-section unslectable">
+                        <img src="shovel.png" class="upgrade-img">
+                    </div>
+                    <div class="mid-section unslectable">
+                        <h4>Shovel</h4>
+                        <div class="cost-info unslectable">
+                            <p>Cost: <span id="upgrade-cost1">0</span></p>
+                            <img src="gold.png" class="gold-img">
+                        </div>
+                    </div>
+                    <div class="right-section unslectable">
+                        <p><span id="upgrade-amount1">0</span></p>
+                    </div>
+                </div>
+                <div class="upgrade unslectable" onclick="upgrade.purchase(2)">
+                    <div class="left-section unslectable">
+                        <img src="mining_cart.jpg" class="upgrade-img">
+                    </div>
+                    <div class="mid-section unslectable">
+                        <h4>Mining Cart</h4>
+                        <div class="cost-info unslectable">
+                            <p>Cost: <span id="upgrade-cost2">0</span></p>
+                            <img src="gold.png" class="gold-img">
+                        </div>
+                    </div>
+                    <div class="right-section unslectable">
+                        <p><span id="upgrade-amount2">0</span></p>
+                    </div>
+                </div>
+                <div class="upgrade unslectable" onclick="upgrade.purchase(3)">
+                    <div class="left-section unslectable">
+                        <img src="mountain.jpg" class="upgrade-img">
+                    </div>
+                    <div class="mid-section unslectable">
+                        <h4>Mountain</h4>
+                        <div class="cost-info unslectable">
+                            <p>Cost: <span id="upgrade-cost3">0</span></p>
+                            <img src="gold.png" class="gold-img">
+                        </div>
+                    </div>
+                    <div class="right-section unslectable">
+                        <p><span id="upgrade-amount3">0</span></p>
+                    </div>
+                </div>
+                <div class="upgrade unslectable" onclick="upgrade.purchase(4)">
+                    <div class="left-section unslectable">
+                        <img src="bank.png" class="upgrade-img">
+                    </div>
+                    <div class="mid-section unslectable">
+                        <h4>Bank</h4>
+                        <div class="cost-info unslectable">
+                            <p>Cost: <span id="upgrade-cost4">0</span></p>
+                            <img src="gold.png" class="gold-img">
+                        </div>
+                    </div>
+                    <div class="right-section unslectable">
+                        <p><span id="upgrade-amount4">0</span></p>
+                    </div>
+                </div>
+                <div class="upgrade unslectable" onclick="upgrade.purchase(5)">
+                    <div class="left-section unslectable">
+                        <img src="safe.png" class="upgrade-img">
+                    </div>
+                    <div class="mid-section unslectable">
+                        <h4>Safe</h4>
+                        <div class="cost-info unslectable">
+                            <p>Cost: <span id="upgrade-cost5">0</span></p>
+                            <img src="gold.png" class="gold-img">
+                        </div>
+                    </div>
+                    <div class="right-section unslectable">
+                        <p><span id="upgrade-amount5">0</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom">
+                <div class="comments">
+                    <p>Version: 4.000</p>
+                    <p>Release Notes: Added Super Upgrade and 1 perk</p>
+                    <button class="save" onclick="saveGame()">Save Game</button>
+                    <button class="reset" onclick="resetGame()">Reset Game</button>
+                </div>
+                <div class="super">
+                    <h3>Super</h3>
+                    <h5>Hover over box to show description</h5>
+                    <div class="super-main">
+                        <div class="super-click" title="This super upgrade will grant you +10000 Click Value Cost: 1000000" onclick="super_upgrade.purchase(0)">
+                            <p>Super Click</p>
+                            <img src="cursor.webp">
+                        </div>
+                        <div class="super-gold" title="In Development">
+                            <p>Super Gold</p>
+                            <img src="gold.png">
+                        </div>
+                        <div class="super-click1" title="This super upgrade will grant you +100000 Click Cost: 10000000" onclick="super_upgrade.purchase(2)">
+                            <p>Super Click 1</p>
+                            <img src="cursor.webp">
+                        </div>
+                        <div class="super-gold1" title="In Development">
+                            <p>Super Gold 1</p>
+                            <img src="gold.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="main.js"></script>
+</body>
+</html>
