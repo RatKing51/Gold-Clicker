@@ -8,7 +8,7 @@ var game = {
     click: function(amount){
         this.gold += amount;
         this.totalClicks++
-        this.totalGold++
+        this.totalGold += amount
         display.updateScore()
         display.updateStats()
     },
