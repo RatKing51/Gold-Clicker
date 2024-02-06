@@ -75,6 +75,27 @@ body {
 #perk6 img:hover {
     transform: scale(1.02);
 }
+#perk7 img {
+    width: 32px;
+}
+
+#perk7 img:hover {
+    transform: scale(1.02);
+}
+#perk8 img {
+    width: 32px;
+}
+
+#perk8 img:hover {
+    transform: scale(1.02);
+}
+#perk9 img {
+    width: 32px;
+}
+
+#perk9 img:hover {
+    transform: scale(1.02);
+}
 
 .clicker {
     float: right;

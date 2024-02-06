@@ -88,7 +88,10 @@ var perk = {
         500,
         1000,
         1500,
-        2000
+        2000,
+        300,
+        500,
+        700
     ],
 
     output: [
@@ -97,6 +100,9 @@ var perk = {
         2,
         5,
         5,
+        2,
+        2,
+        2,
         2
     ],
 
@@ -106,7 +112,10 @@ var perk = {
         "none",
         "none",
         "none",
-        "none"
+        "none",
+        1,
+        2,
+        3
     ],
 
     need: [
@@ -115,10 +124,16 @@ var perk = {
         350,
         500,
         1000,
-        1500
+        1500,
+        10,
+        10,
+        10
     ],
 
     purchased: [
+        false,
+        false,
+        false,
         false,
         false,
         false,
@@ -236,13 +251,44 @@ var display = {
         if (perk.purchased[5] == false){
             if (game.gold >= perk.cost[5]){
                 if (game.totalClicks >= perk.need[5]){
-                    document.getElementById("perk6").innerHTML = `<img src="clicker.jpg" title="Gold Cursor: Click value +2 cost:2000" onclick="perk.purchase(5)">`
+                    document.getElementById("perk6").innerHTML = `<img src="clicker.jpg" title="Diamond Cursor: Click value +2 cost:2000" onclick="perk.purchase(5)">`
                 }
             }
         }
         else{
             document.getElementById("perk6").innerHTML = ""
         }
+        if (perk.purchased[6] == false){
+            if (game.gold >= perk.cost[6]){
+                if (upgrade.amount[perk.index[6]] >= perk.need[6]){
+                    document.getElementById("perk7").innerHTML = `<img src="shovel.png" title="Double Shovels: shovel value times 2 cost:300" onclick="perk.purchase(6)">`
+                }
+            }
+        }
+        else{
+            document.getElementById("perk7").innerHTML = ""
+        }
+        if (perk.purchased[7] == false){
+            if (game.gold >= perk.cost[7]){
+                if (upgrade.amount[perk.index[7]] >= perk.need[7]){
+                    document.getElementById("perk8").innerHTML = `<img src="mining_cart.jpg" title="Double Carts: Carts value times 2 cost:500" onclick="perk.purchase(7)">`
+                }
+            }
+        }
+        else{
+            document.getElementById("perk8").innerHTML = ""
+        }
+        if (perk.purchased[8] == false){
+            if (game.gold >= perk.cost[8]){
+                if (upgrade.amount[perk.index[8]] >= perk.need[7]){
+                    document.getElementById("perk9").innerHTML = `<img src="mountain.jpg" title="Double Mountains: Mountains value times 2 cost:700" onclick="perk.purchase(8)">`
+                }
+            }
+        }
+        else{
+            document.getElementById("perk9").innerHTML = ""
+        }
+        
 
     },
 
