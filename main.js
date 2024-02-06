@@ -91,7 +91,8 @@ var perk = {
         2000,
         300,
         500,
-        700
+        700,
+        900
     ],
 
     output: [
@@ -100,6 +101,7 @@ var perk = {
         2,
         5,
         5,
+        2,
         2,
         2,
         2,
@@ -115,7 +117,8 @@ var perk = {
         "none",
         1,
         2,
-        3
+        3,
+        4
     ],
 
     need: [
@@ -127,10 +130,12 @@ var perk = {
         1500,
         10,
         10,
+        10,
         10
     ],
 
     purchased: [
+        false,
         false,
         false,
         false,
@@ -280,8 +285,18 @@ var display = {
         }
         if (perk.purchased[8] == false){
             if (game.gold >= perk.cost[8]){
-                if (upgrade.amount[perk.index[8]] >= perk.need[7]){
+                if (upgrade.amount[perk.index[8]] >= perk.need[8]){
                     document.getElementById("perk9").innerHTML = `<img src="mountain.jpg" title="Double Mountains: Mountains value times 2 cost:700" onclick="perk.purchase(8)">`
+                }
+            }
+        }
+        else{
+            document.getElementById("perk9").innerHTML = ""
+        }
+        if (perk.purchased[9] == false){
+            if (game.gold >= perk.cost[9]){
+                if (upgrade.amount[perk.index[9]] >= perk.need[9]){
+                    document.getElementById("perk9").innerHTML = `<img src="bank.png" title="Double Bank: Bank value times 2 cost:900" onclick="perk.purchase(9)">`
                 }
             }
         }

@@ -96,6 +96,13 @@ body {
 #perk9 img:hover {
     transform: scale(1.02);
 }
+#perk10 img {
+    width: 32px;
+}
+
+#perk10 img:hover {
+    transform: scale(1.02);
+}
 
 .clicker {
     float: right;
