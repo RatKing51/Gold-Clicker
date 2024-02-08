@@ -5,17 +5,18 @@ var game = {
     totalGold: 0,
     scorePerSecond: 0,
 
-    click: function(amount){
+    click: function (amount) {
         this.gold += amount;
         this.totalClicks++
         this.totalGold++
         display.updateScore()
         display.updateStats()
+        upgrade.buyable()
     },
 
-    getScorePerSecond: function(){
+    getScorePerSecond: function () {
         this.scorePerSecond = 0
-        for (i=0; i<upgrade.name.length; i++){
+        for (i = 0; i < upgrade.name.length; i++) {
             this.scorePerSecond += upgrade.income[i] * upgrade.amount[i]
         }
         return this.scorePerSecond
@@ -32,7 +33,10 @@ var upgrade = {
         "Bank",
         "Safe",
         "Gold Coin",
-        "Rocket"
+        "Rocket",
+        "Moon",
+        "Moon Base",
+        "Moon Lab"
     ],
 
     cost: [
@@ -43,10 +47,16 @@ var upgrade = {
         4000,
         10000,
         15000,
-        20000
+        20000,
+        25000,
+        50000,
+        95000
     ],
 
     amount: [
+        0,
+        0,
+        0,
         0,
         0,
         0,
@@ -66,67 +76,88 @@ var upgrade = {
         9,
         11,
         15,
-        20
+        20,
+        25,
+        30,
+        35
     ],
 
-    purchase: function(index){
-        if (game.gold >= this.cost[index]){
+    purchase: function (index) {
+        if (game.gold >= this.cost[index]) {
             game.gold -= this.cost[index]
             this.amount[index]++
-            this.cost[index] = Math.ceil(this.cost[index] * 1.15)
+            this.cost[index] = Math.ceil(this.cost[index] * 1.35)
             display.updateScore()
             display.updateUpgrade()
         }
     },
 
-    buyable: function() {
-        if (game.gold < this.cost[0]){
+    buyable: function () {
+        if (game.gold < this.cost[0]) {
             document.getElementById("upgrade0").style.border = "4px solid grey"
         }
         else {
             document.getElementById("upgrade0").style.border = "4px solid gold"
         }
-        if (game.gold < this.cost[1]){
+        if (game.gold < this.cost[1]) {
             document.getElementById("upgrade1").style.border = "4px solid grey"
         }
         else {
             document.getElementById("upgrade1").style.border = "4px solid gold"
         }
-        if (game.gold < this.cost[2]){
+        if (game.gold < this.cost[2]) {
             document.getElementById("upgrade2").style.border = "4px solid grey"
         }
         else {
             document.getElementById("upgrade2").style.border = "4px solid gold"
         }
-        if (game.gold < this.cost[3]){
+        if (game.gold < this.cost[3]) {
             document.getElementById("upgrade3").style.border = "4px solid grey"
         }
         else {
             document.getElementById("upgrade3").style.border = "4px solid gold"
         }
-        if (game.gold < this.cost[4]){
+        if (game.gold < this.cost[4]) {
             document.getElementById("upgrade4").style.border = "4px solid grey"
         }
         else {
             document.getElementById("upgrade4").style.border = "4px solid gold"
         }
-        if (game.gold < this.cost[5]){
+        if (game.gold < this.cost[5]) {
             document.getElementById("upgrade5").style.border = "4px solid grey"
         }
         else {
             document.getElementById("upgrade5").style.border = "4px solid gold"
         }
-        if (game.gold < this.cost[6]){
+        if (game.gold < this.cost[6]) {
             document.getElementById("upgrade6").style.border = "4px solid grey"
         }
         else {
             document.getElementById("upgrade6").style.border = "4px solid gold"
         }
-        if (game.gold < this.cost[7]){
+        if (game.gold < this.cost[7]) {
             document.getElementById("upgrade7").style.border = "4px solid grey"
         }
         else {
             document.getElementById("upgrade7").style.border = "4px solid gold"
+        }
+        if (game.gold < this.cost[8]) {
+            document.getElementById("upgrade8").style.border = "4px solid grey"
+        }
+        else {
+            document.getElementById("upgrade8").style.border = "4px solid gold"
+        }
+        if (game.gold < this.cost[9]) {
+            document.getElementById("upgrade9").style.border = "4px solid grey"
+        }
+        else {
+            document.getElementById("upgrade9").style.border = "4px solid gold"
+        }
+        if (game.gold < this.cost[10]) {
+            document.getElementById("upgrade10").style.border = "4px solid grey"
+        }
+        else {
+            document.getElementById("upgrade10").style.border = "4px solid gold"
         }
     }
 }
@@ -142,7 +173,11 @@ var perk = {
         2000,
         300,
         500,
-        700
+        700,
+        900,
+        1200,
+        1500,
+        3000
     ],
 
     output: [
@@ -151,6 +186,10 @@ var perk = {
         2,
         5,
         5,
+        2,
+        2,
+        2,
+        2,
         2,
         2,
         2,
@@ -166,7 +205,11 @@ var perk = {
         "none",
         1,
         2,
-        3
+        3,
+        4,
+        5,
+        6,
+        7
     ],
 
     need: [
@@ -176,6 +219,10 @@ var perk = {
         500,
         1000,
         1500,
+        10,
+        10,
+        10,
+        10,
         10,
         10,
         10
@@ -190,13 +237,17 @@ var perk = {
         false,
         false,
         false,
+        false,
+        false,
+        false,
+        false,
         false
     ],
 
-    purchase: function(index){
-        if (game.gold >= this.cost[index]){
+    purchase: function (index) {
+        if (game.gold >= this.cost[index]) {
             game.gold -= this.cost[index];
-            if (this.index[index] == "none"){
+            if (this.index[index] == "none") {
                 game.clickValue += this.output[index]
                 this.purchased[index] = true;
             }
@@ -211,24 +262,24 @@ var perk = {
 }
 
 var display = {
-    updateScore: function(){
+    updateScore: function () {
         document.getElementById("gold").innerHTML = game.gold;
         document.title = game.gold + " Gold - Gold Clicker"
     },
 
-    updateScorePerSection: function(){
+    updateScorePerSection: function () {
         game.gold += game.getScorePerSecond()
         game.totalGold += game.getScorePerSecond()
     },
 
-    updateStats: function(){
+    updateStats: function () {
         document.getElementById("click-value").innerHTML = "Click Value: " + game.clickValue
         document.getElementById("click-total").innerHTML = "Total Clicks: " + game.totalClicks
         document.getElementById("gold-per-second").innerHTML = "Gold Per Second: " + game.getScorePerSecond()
         document.getElementById("total-gold").innerHTML = "Total Gold: " + game.totalGold
     },
 
-    updateUpgrade: function(){
+    updateUpgrade: function () {
         document.getElementById("upgrade-cost0").innerHTML = upgrade.cost[0]
         document.getElementById("upgrade-amount0").innerHTML = upgrade.amount[0]
         document.getElementById("upgrade-cost1").innerHTML = upgrade.cost[1]
@@ -245,115 +296,161 @@ var display = {
         document.getElementById("upgrade-amount6").innerHTML = upgrade.amount[6]
         document.getElementById("upgrade-cost7").innerHTML = upgrade.cost[7]
         document.getElementById("upgrade-amount7").innerHTML = upgrade.amount[7]
-        
+        document.getElementById("upgrade-cost8").innerHTML = upgrade.cost[8]
+        document.getElementById("upgrade-amount8").innerHTML = upgrade.amount[8]
+        document.getElementById("upgrade-cost9").innerHTML = upgrade.cost[9]
+        document.getElementById("upgrade-amount9").innerHTML = upgrade.amount[9]
+        document.getElementById("upgrade-cost10").innerHTML = upgrade.cost[10]
+        document.getElementById("upgrade-amount10").innerHTML = upgrade.amount[10]
+
     },
 
-    updatePerk: function(){
-        if (perk.purchased[0] == false){
-            if (game.gold >= perk.cost[0]){
-                if (upgrade.amount[perk.index[0]] >= 10){
+    updatePerk: function () {
+        if (perk.purchased[0] == false) {
+            if (game.gold >= perk.cost[0]) {
+                if (upgrade.amount[perk.index[0]] >= 10) {
                     document.getElementById("perk1").innerHTML = `<img src="cursor.webp" title="Stone Clicker: Clickers will upgrade income to 2 Cost:1000" onclick="perk.purchase(0)">`
                 }
             }
         }
-        else{
+        else {
             document.getElementById("perk1").innerHTML = ""
         }
-        if (perk.purchased[1] == false){
-            if (game.gold >= perk.cost[1]){
-                if (upgrade.amount[perk.index[1]] >= 100){
+        if (perk.purchased[1] == false) {
+            if (game.gold >= perk.cost[1]) {
+                if (upgrade.amount[perk.index[1]] >= 100) {
                     document.getElementById("perk2").innerHTML = `<img src="cursor.webp" title="Silver Clicker: Clickers will upgrade income to 2 Cost:5000" onclick="perk.purchase(1)">`
                 }
             }
         }
-        else{
+        else {
             document.getElementById("perk2").innerHTML = ""
         }
-        if (perk.purchased[2] == false){
-            if (game.gold >= perk.cost[2]){
-                if (game.totalClicks >= perk.need[2]){
+        if (perk.purchased[2] == false) {
+            if (game.gold >= perk.cost[2]) {
+                if (game.totalClicks >= perk.need[2]) {
                     document.getElementById("perk3").innerHTML = `<img src="clicker.jpg" title="Stone Cursor: Click value +2 cost:500" onclick="perk.purchase(2)">`
                 }
             }
         }
-        else{
+        else {
             document.getElementById("perk3").innerHTML = ""
         }
-        if (perk.purchased[3] == false){
-            if (game.gold >= perk.cost[3]){
-                if (game.totalClicks >= perk.need[3]){
+        if (perk.purchased[3] == false) {
+            if (game.gold >= perk.cost[3]) {
+                if (game.totalClicks >= perk.need[3]) {
                     document.getElementById("perk4").innerHTML = `<img src="clicker.jpg" title="Silver Cursor: Click value +5 cost:1000" onclick="perk.purchase(3)">`
                 }
             }
         }
-        else{
+        else {
             document.getElementById("perk4").innerHTML = ""
         }
-        if (perk.purchased[4] == false){
-            if (game.gold >= perk.cost[4]){
-                if (game.totalClicks >= perk.need[4]){
+        if (perk.purchased[4] == false) {
+            if (game.gold >= perk.cost[4]) {
+                if (game.totalClicks >= perk.need[4]) {
                     document.getElementById("perk5").innerHTML = `<img src="clicker.jpg" title="Gold Cursor: Click value +5 cost:1500" onclick="perk.purchase(4)">`
                 }
             }
         }
-        else{
+        else {
             document.getElementById("perk5").innerHTML = ""
         }
-        if (perk.purchased[5] == false){
-            if (game.gold >= perk.cost[5]){
-                if (game.totalClicks >= perk.need[5]){
+        if (perk.purchased[5] == false) {
+            if (game.gold >= perk.cost[5]) {
+                if (game.totalClicks >= perk.need[5]) {
                     document.getElementById("perk6").innerHTML = `<img src="clicker.jpg" title="Diamond Cursor: Click value +2 cost:2000" onclick="perk.purchase(5)">`
                 }
             }
         }
-        else{
+        else {
             document.getElementById("perk6").innerHTML = ""
         }
-        if (perk.purchased[6] == false){
-            if (game.gold >= perk.cost[6]){
-                if (upgrade.amount[perk.index[6]] >= perk.need[6]){
+        if (perk.purchased[6] == false) {
+            if (game.gold >= perk.cost[6]) {
+                if (upgrade.amount[perk.index[6]] >= perk.need[6]) {
                     document.getElementById("perk7").innerHTML = `<img src="shovel.png" title="Double Shovels: shovel value times 2 cost:300" onclick="perk.purchase(6)">`
                 }
             }
         }
-        else{
+        else {
             document.getElementById("perk7").innerHTML = ""
         }
-        if (perk.purchased[7] == false){
-            if (game.gold >= perk.cost[7]){
-                if (upgrade.amount[perk.index[7]] >= perk.need[7]){
+        if (perk.purchased[7] == false) {
+            if (game.gold >= perk.cost[7]) {
+                if (upgrade.amount[perk.index[7]] >= perk.need[7]) {
                     document.getElementById("perk8").innerHTML = `<img src="mining_cart.jpg" title="Double Carts: Carts value times 2 cost:500" onclick="perk.purchase(7)">`
                 }
             }
         }
-        else{
+        else {
             document.getElementById("perk8").innerHTML = ""
         }
-        if (perk.purchased[8] == false){
-            if (game.gold >= perk.cost[8]){
-                if (upgrade.amount[perk.index[8]] >= perk.need[7]){
+        if (perk.purchased[8] == false) {
+            if (game.gold >= perk.cost[8]) {
+                if (upgrade.amount[perk.index[8]] >= perk.need[8]) {
                     document.getElementById("perk9").innerHTML = `<img src="mountain.jpg" title="Double Mountains: Mountains value times 2 cost:700" onclick="perk.purchase(8)">`
                 }
             }
         }
-        else{
+        else {
             document.getElementById("perk9").innerHTML = ""
         }
-        
+        if (perk.purchased[9] == false) {
+            if (game.gold >= perk.cost[9]) {
+                if (upgrade.amount[perk.index[9]] >= perk.need[9]) {
+                    document.getElementById("perk10").innerHTML = `<img src="bank.png" title="Double Bank: Bank value times 2 cost:900" onclick="perk.purchase(9)">`
+                }
+            }
+        }
+        else {
+            document.getElementById("perk10").innerHTML = ""
+        }
+        if (perk.purchased[10] == false) {
+            if (game.gold >= perk.cost[10]) {
+                if (upgrade.amount[perk.index[10]] >= perk.need[10]) {
+                    document.getElementById("perk11").innerHTML = `<img src="safe.png" title="Double Safe: Safe value times 2 cost:1200" onclick="perk.purchase(10)">`
+                }
+            }
+        }
+        else {
+            document.getElementById("perk11").innerHTML = ""
+        }
+        if (perk.purchased[11] == false) {
+            if (game.gold >= perk.cost[11]) {
+                if (upgrade.amount[perk.index[11]] >= perk.need[11]) {
+                    document.getElementById("perk12").innerHTML = `<img src="gold-coin.png" title="Double Gold Coin: Gold Coin value times 2 cost:1500" onclick="perk.purchase(11)">`
+                }
+            }
+        }
+        else {
+            document.getElementById("perk12").innerHTML = ""
+        }
+        if (perk.purchased[12] == false) {
+            if (game.gold >= perk.cost[12]) {
+                if (upgrade.amount[perk.index[12]] >= perk.need[11]) {
+                    document.getElementById("perk13").innerHTML = `<img src="rocket.png" title="Double Rocker: Rocket value times 2 cost:3000" onclick="perk.purchase(12)">`
+                }
+            }
+        }
+        else {
+            document.getElementById("perk13").innerHTML = ""
+        }
+
 
     },
 
-    updateSuper: function() {
-        if (super_upgrade.purchased[0] == true){
+    updateSuper: function () {
+        if (super_upgrade.purchased[0] == true) {
             document.querySelector(".super-click").style.border = "4px solid green"
         }
-        if (super_upgrade.purchased[1] == true){
+        if (super_upgrade.purchased[1] == true) {
             document.querySelector(".super-gold").style.border = "4px solid green"
         }
-        if (super_upgrade.purchased[2] == true){
+        if (super_upgrade.purchased[2] == true) {
             document.querySelector(".super-click1").style.border = "4px solid green"
         }
-        if (super_upgrade.purchased[3] == true){
+        if (super_upgrade.purchased[3] == true) {
             document.querySelector(".super-gold1").style.border = "4px solid green"
         }
     }
@@ -381,15 +478,15 @@ var super_upgrade = {
         false
     ],
 
-    purchase: function(index) {
-        if (game.gold >= this.cost[index]){
-            if (this.purchased[index] == false){
+    purchase: function (index) {
+        if (game.gold >= this.cost[index]) {
+            if (this.purchased[index] == false) {
                 game.gold -= this.cost[index]
                 this.purchased[index] = true
-                if (this.name[index] == "Super Click"){
+                if (this.name[index] == "Super Click") {
                     game.clickValue += 10000
                 }
-                if (this.name[index] == "Super Click 1"){
+                if (this.name[index] == "Super Click 1") {
                     game.clickValue += 100000
                 }
                 display.updateSuper()
@@ -423,35 +520,35 @@ function loadGame() {
         if (typeof savedGame.clickValue !== "undefined") game.clickValue = savedGame.clickValue;
         if (typeof savedGame.totalGold !== "undefined") game.totalGold = savedGame.totalGold;
         if (typeof savedGame.scorePerSecond !== "undefined") game.scorePerSecond = savedGame.scorePerSecond;
-        if (typeof savedGame.upgradeCost !== "undefined"){
-            for (i=0; i < savedGame.upgradeCost.length; i++) {
+        if (typeof savedGame.upgradeCost !== "undefined") {
+            for (i = 0; i < savedGame.upgradeCost.length; i++) {
                 upgrade.cost[i] = savedGame.upgradeCost[i];
             }
         }
-        if (typeof savedGame.upgradeAmount !== "undefined"){
-            for (i=0; i < savedGame.upgradeAmount.length; i++) {
+        if (typeof savedGame.upgradeAmount !== "undefined") {
+            for (i = 0; i < savedGame.upgradeAmount.length; i++) {
                 upgrade.amount[i] = savedGame.upgradeAmount[i];
             }
         }
-        if (typeof savedGame.upgradeIncome !== "undefined"){
-            for (i=0; i < savedGame.upgradeIncome.length; i++) {
+        if (typeof savedGame.upgradeIncome !== "undefined") {
+            for (i = 0; i < savedGame.upgradeIncome.length; i++) {
                 upgrade.income[i] = savedGame.upgradeIncome[i];
             }
         }
-        if (typeof savedGame.perkPurchased !== "undefined"){
-            for (i=0; i < savedGame.perkPurchased.length; i++) {
+        if (typeof savedGame.perkPurchased !== "undefined") {
+            for (i = 0; i < savedGame.perkPurchased.length; i++) {
                 perk.purchased[i] = savedGame.perkPurchased[i];
             }
         }
-        if (typeof savedGame.superUpgradePurchased !== "undefined"){
-            for (i=0; i < savedGame.superUpgradePurchased.length; i++) {
+        if (typeof savedGame.superUpgradePurchased !== "undefined") {
+            for (i = 0; i < savedGame.superUpgradePurchased.length; i++) {
                 super_upgrade.purchased[i] = savedGame.superUpgradePurchased[i];
             }
         }
     }
 }
 
-function resetGame(){
+function resetGame() {
     if (confirm("Are you Sure you want to reset you game?")) {
         var gameSave = {};
         localStorage.setItem("gameSave", JSON.stringify(gameSave));
@@ -459,7 +556,7 @@ function resetGame(){
     }
 }
 
-window.onload = function(){
+window.onload = function () {
     display.updateScore()
     display.updateStats()
     display.updateUpgrade()
@@ -471,7 +568,7 @@ window.onload = function(){
     saveGame()
 }
 
-setInterval(function(){
+setInterval(function () {
     display.updateScore()
     display.updateScorePerSection()
     display.updateStats()
@@ -481,6 +578,6 @@ setInterval(function(){
     upgrade.buyable()
 }, 1000)
 
-setInterval(function(){
+setInterval(function () {
     saveGame()
 }, 30000)

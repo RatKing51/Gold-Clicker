@@ -23,7 +23,7 @@
                 </div>
                 <div class="clicker unslectable">
                     <h3>Gold: <span id="gold">0</span></h3>
-                    <img class="img" src="gold.png" onclick="game.click(game.clickValue)">
+                    <img class="img unslectable" draggable="false" src="gold.png" onclick="game.click(game.clickValue)">
                 </div>
                 <div class="center unslectable">
                     <p>Perks</p>
@@ -46,6 +46,12 @@
                     <div id="perk9">
                     </div>
                     <div id="perk10">
+                    </div>
+                    <div id="perk11">
+                    </div>
+                    <div id="perk12">
+                    </div>
+                    <div id="perk13">
                     </div>
                 </div>
             </div>
@@ -170,11 +176,56 @@
                         <p><span id="upgrade-amount7">0</span></p>
                     </div>
                 </div>
+                <div class="upgrade unslectable" onclick="upgrade.purchase(8)" title="Starting Income: 30" id="upgrade8">
+                    <div class="left-section unslectable">
+                        <img src="moon.png" class="upgrade-img">
+                    </div>
+                    <div class="mid-section unslectable">
+                        <h4>Moon</h4>
+                        <div class="cost-info unslectable">
+                            <p>Cost: <span id="upgrade-cost8">0</span></p>
+                            <img src="gold.png" class="gold-img">
+                        </div>
+                    </div>
+                    <div class="right-section unslectable">
+                        <p><span id="upgrade-amount8">0</span></p>
+                    </div>
+                </div>
+                <div class="upgrade unslectable" onclick="upgrade.purchase(9)" title="Starting Income: 30" id="upgrade9">
+                    <div class="left-section unslectable">
+                        <img src="moon-base.png" class="upgrade-img">
+                    </div>
+                    <div class="mid-section unslectable">
+                        <h4>Moon Base</h4>
+                        <div class="cost-info unslectable">
+                            <p>Cost: <span id="upgrade-cost9">0</span></p>
+                            <img src="gold.png" class="gold-img">
+                        </div>
+                    </div>
+                    <div class="right-section unslectable">
+                        <p><span id="upgrade-amount9">0</span></p>
+                    </div>
+                </div>
+                <div class="upgrade unslectable" onclick="upgrade.purchase(10)" title="Starting Income: 35" id="upgrade10">
+                    <div class="left-section unslectable">
+                        <img src="lab.jpg" class="upgrade-img">
+                    </div>
+                    <div class="mid-section unslectable">
+                        <h4>Moon Lab</h4>
+                        <div class="cost-info unslectable">
+                            <p>Cost: <span id="upgrade-cost10">0</span></p>
+                            <img src="gold.png" class="gold-img">
+                        </div>
+                    </div>
+                    <div class="right-section unslectable">
+                        <p><span id="upgrade-amount10">0</span></p>
+                    </div>
+                </div>
             </div>
             <div class="bottom">
                 <div class="comments">
-                    <p>Version: 5.730</p>
-                    <p>Release Notes: Added some style stuff and fixed style bugs</p>
+                    <p>Version: 5.8</p>
+                    <p>Release Notes:new upgrades and perks Sorry if updates are slow I've been busy</p>
                     <button class="save" onclick="saveGame()">Save Game</button>
                     <button class="reset" onclick="resetGame()">Reset Game</button>
                 </div>
