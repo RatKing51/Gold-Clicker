@@ -566,6 +566,7 @@ window.onload = function () {
     display.updateSuper()
     loadGame()
     saveGame()
+    alert("Site will not be updated for maybe 1 week or so, undergoing many changes!!! Will be back, this version is old.... Save data might not work on new version.")
 }
 
 setInterval(function () {
