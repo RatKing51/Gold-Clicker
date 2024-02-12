@@ -325,7 +325,7 @@ body {
     background-color: rgba(255, 217, 0, 0.276);
     color: white;
     border: 4px solid gold;
-    margin-top: 10px;
+    margin-top: 15px;
     margin-right: 3px;
 }
 
@@ -337,7 +337,7 @@ body {
     border-radius: 5px;
     background-color: rgba(255, 217, 0, 0.276);
     color: white;
-    margin-top: 10px;
+    margin-top: 15px;
     border: 4px solid gold;
     margin-left: 3px;
 }
