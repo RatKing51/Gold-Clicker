@@ -1,0 +1,14 @@
+        Starting Income's and prices
+
+Name : Cost : Income : Index
+Clicker : 30 : 0.5 : 0
+Shovel : 100 : 1 : 1
+Mine Cart : 1000 : 3 : 2
+Mountain : 2000 : 10 : 3
+Safe : 5000 : 19 : 4
+Bank : 12000 : 25 : 5
+Bunker : 20000 : 42 : 6
+Rocket : 50000 : 63 : 7
+Moon : 15000000 : 91 : 8
+Moon Base : 30000000: 135 : 9
+Moon Lab : 10000000 : 225 : 10

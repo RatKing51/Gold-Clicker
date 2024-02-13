@@ -1,584 +1,460 @@
 var game = {
     gold: 0,
+    gps: 0,
+    clicked: 0,
     clickValue: 1,
-    totalClicks: 0,
     totalGold: 0,
-    scorePerSecond: 0,
 
-    click: function (amount) {
+    click: function(amount) {
         this.gold += amount;
-        this.totalClicks++
-        this.totalGold++
+        this.clicked++;
+        this.totalGold += amount;
         display.updateScore()
-        display.updateStats()
-        upgrade.buyable()
+        this.perk.spawn()
     },
 
-    getScorePerSecond: function () {
-        this.scorePerSecond = 0
-        for (i = 0; i < upgrade.name.length; i++) {
-            this.scorePerSecond += upgrade.income[i] * upgrade.amount[i]
-        }
-        return this.scorePerSecond
-    }
+    upgrade:  {
+        name: [
+            "Cursor",
+            "Shovel",
+            "Mine Cart",
+            "Mountain",
+            "Safe",
+            "Bank",
+            "Bunker",
+            "Rocket",
+            "Moon",
+            "Moon Base",
+            "Moon Lab"
+        ],
 
-}
+        cost: [
+            30,
+            100,
+            1000,
+            2000,
+            5000,
+            12000,
+            20000,
+            50000,
+            1500000,
+            3000000,
+            10000000
+        ],
 
-var upgrade = {
-    name: [
-        "Clicker",
-        "Shovel",
-        "Mining Cart",
-        "Mountain",
-        "Bank",
-        "Safe",
-        "Gold Coin",
-        "Rocket",
-        "Moon",
-        "Moon Base",
-        "Moon Lab"
-    ],
+        amount: [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
 
-    cost: [
-        30,
-        150,
-        750,
-        1500,
-        4000,
-        10000,
-        15000,
-        20000,
-        25000,
-        50000,
-        95000
-    ],
+        owned: [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+        ],
+        
+        income: [
+            0.5,
+            1,
+            3,
+            10,
+            19,
+            25,
+            42,
+            63,
+            91,
+            135,
+            225
+        ],
 
-    amount: [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-    ],
+        image: [
+            "cursor.webp",
+            "shovel.png",
+            "mining_cart.jpg",
+            "mountain.jpg",
+            "safe.png",
+            "bank.png",
+            "bunker.jpg",
+            "rocket.png",
+            "moon.png",
+            "moon-base.png",
+            "lab.jpg"
+        ],
 
+        description: [
+            "Will Click for you, Produces: ",
+            "Shovel to get more gold, Produces: ",
+            "Mine Cart to get your empire growing, Produces: ",
+            "Mountain for your Mine Cart, Produces: ",
+            "You need a safe for all that gold, Produces: ",
+            "You got all of this gold, time for a bank, Produces: ",
+            "Storge for gold just incase, Produces: ",
+            "All of this gold has to go somewhere, Produces: ",
+            "Where is the rocket gonna land? Produces: ",
+            "Gotta make it yours huh? Produces: ",
+            "Your gonna grow gold now, but on the moon! Produces: "
+        ],
 
-    income: [
-        1,
-        3,
-        5,
-        7,
-        9,
-        11,
-        15,
-        20,
-        25,
-        30,
-        35
-    ],
+        purchase: function(index) {
+            if (game.gold >= this.cost[index]){
+                game.gold -= this.cost[index]
+                this.amount[index]++
+                this.owned[index] = true
+                this.cost[index] = Math.floor(this.cost[index] * 1.25)
+                display.updateScore()
+                this.spawn()
+                game.perk.spawn()
+            }
+        },
 
-    purchase: function (index) {
-        if (game.gold >= this.cost[index]) {
-            game.gold -= this.cost[index]
-            this.amount[index]++
-            this.cost[index] = Math.ceil(this.cost[index] * 1.35)
-            display.updateScore()
-            display.updateUpgrade()
+        spawn: function(){
+            document.getElementById("sectionRight").innerHTML = ""
+            for(i=0; i<this.name.length; i++){
+                document.getElementById("sectionRight").innerHTML += `<div class="upgrade" id="upgrade${i}" onclick="game.upgrade.purchase(${i})" title="${this.description[i] + this.income[i]} Gold"><table><tr><td><img src="${this.image[i]}" class="upgrade-img" id="image"></td><td id="nameAndCost"><p>${this.name[i]}</p><p id="cost"><p>Cost: </p>${this.cost[i]}</p></td><td id="amount"><p>${this.amount[i]}</p></td></tr></table></div>`
+            }
+            //if (game.gold > this.cost[0]){
+              //  document.getElementById("upgrade0").style.border = "4px solid gray"
+            //}
+        },
+
+        goldPerSecond: function(){
+            game.goldPerSecond = 0;
+            for(i=0; i<this.name.length; i++){
+                game.goldPerSecond += this.income[i] * this.amount[i]
+            }
+
+            return game.goldPerSecond
         }
     },
 
-    buyable: function () {
-        if (game.gold < this.cost[0]) {
-            document.getElementById("upgrade0").style.border = "4px solid grey"
+    perk: {
+        name: [
+            "Clicker Syndrome, ",
+            "Cursor Help, ",
+            "Clicker Addiction, ",
+            "Better Shovel, ",
+            "Faster Minecarts, ",
+            "Bigger Mountains, ",
+            "Better Lock, ",
+            "Bigger Bank, ",
+            "Better Bunker, ",
+            "Faster Rocket, ",
+            "Bigger Moons, ",
+            "Bigger Base, ",
+            "Faster Research, "
+        ],
+
+        owned: [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+        ],
+
+        cost: [
+            100,
+            1000,
+            1000,
+            1000,
+            5000,
+            10000,
+            15000,
+            50000,
+            100000,
+            100000,
+            55,
+            55000000,
+            100000000,
+            500000000
+        ],
+
+        index: [
+            false,
+            0,
+            false,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+        ],
+
+        need: [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ],
+
+        output: [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+        ],
+
+        image: [
+            "clicker.jpg",
+            "cursor.webp",
+            "clicker.jpg",
+            "shovel.png",
+            "mining_cart.jpg",
+            "mountain.jpg",
+            "safe.png",
+            "bank.png",
+            "bunker.jpg",
+            "rocket.png",
+            "moon.png",
+            "moon-base.png",
+            "lab.jpg"
+        ],
+
+        description: [
+            "This will double you click value Cost: ",
+            "This will double your cursors. Cost: ",
+            "This will double you click value Cost: ",
+            "You get a better shovel Cost: ",
+            "This doubles your minecart Cost: ",
+            "This doubles your mountain income, Cost: ",
+            "This doubles your safes income, Cost: ",
+            "This doubles your banks income, Cost: ",
+            "This doubles your bunkers income, Cost: ",
+            "This doubles your rockets income, Cost: ",
+            "This doubles your moons income, Cost: ",
+            "This doubles your moon base income, Cost: ",
+            "This doubles your moon lab income, Cost: "
+        ],
+        
+        type: [
+            0,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ],
+
+        purchase: function(index) {
+            if (game.gold >= this.cost[index]){
+                // Click
+                if (this.type[index] == 0){
+                    if (this.need[index] <= game.clicked){
+                        game.gold -= this.cost[index]
+                        this.owned[index] = true
+                        game.clickValue = game.clickValue * this.output[index]
+                        this.spawn()
+                        display.updateScore()
+                        console.log("purchase")
+                    }
+                }
+                // upgrade
+                if (this.type[index] == 1){
+                    if (this.need[index] <= game.upgrade.amount[this.index[index]]){
+                        game.gold -= this.cost[index]
+                        this.owned[index] = true
+                        game.upgrade.income[this.index[index]] = game.upgrade.income[this.index[index]] * this.output[index]
+                        this.spawn()
+                        display.updateScore()
+                    }
+                }
+            }
+        },
+
+        spawn: function() {
+            document.getElementById("sectionTopRight").innerHTML = ""
+            for (i=0; i<this.name.length; i++){
+                if (this.owned[i] == false){
+                    // click
+                    if (this.type[i] == 0){
+                        if (this.need[i] <= game.clicked){
+                            document.getElementById("sectionTopRight").innerHTML += `<div class="perk" onclick="game.perk.purchase(${i})"><div class="perk-img"><img src="${this.image[i]}" title="${this.name[i] + this.description[i] + this.cost[i]}"></div></div>`
+                        }
+                    }
+                    if (this.type[i] == 1){
+                        if (this.need[i] <= game.upgrade.amount[this.index[i]]){
+                            document.getElementById("sectionTopRight").innerHTML += `<div class="perk" onclick="game.perk.purchase(${i})"><div class="perk-img"><img src="${this.image[i]}" title="${this.name[i] + this.description[i] + this.cost[i]}"></div></div>`
+                        }  
+                    }
+                }
+            }
+            
         }
-        else {
-            document.getElementById("upgrade0").style.border = "4px solid gold"
-        }
-        if (game.gold < this.cost[1]) {
-            document.getElementById("upgrade1").style.border = "4px solid grey"
-        }
-        else {
-            document.getElementById("upgrade1").style.border = "4px solid gold"
-        }
-        if (game.gold < this.cost[2]) {
-            document.getElementById("upgrade2").style.border = "4px solid grey"
-        }
-        else {
-            document.getElementById("upgrade2").style.border = "4px solid gold"
-        }
-        if (game.gold < this.cost[3]) {
-            document.getElementById("upgrade3").style.border = "4px solid grey"
-        }
-        else {
-            document.getElementById("upgrade3").style.border = "4px solid gold"
-        }
-        if (game.gold < this.cost[4]) {
-            document.getElementById("upgrade4").style.border = "4px solid grey"
-        }
-        else {
-            document.getElementById("upgrade4").style.border = "4px solid gold"
-        }
-        if (game.gold < this.cost[5]) {
-            document.getElementById("upgrade5").style.border = "4px solid grey"
-        }
-        else {
-            document.getElementById("upgrade5").style.border = "4px solid gold"
-        }
-        if (game.gold < this.cost[6]) {
-            document.getElementById("upgrade6").style.border = "4px solid grey"
-        }
-        else {
-            document.getElementById("upgrade6").style.border = "4px solid gold"
-        }
-        if (game.gold < this.cost[7]) {
-            document.getElementById("upgrade7").style.border = "4px solid grey"
-        }
-        else {
-            document.getElementById("upgrade7").style.border = "4px solid gold"
-        }
-        if (game.gold < this.cost[8]) {
-            document.getElementById("upgrade8").style.border = "4px solid grey"
-        }
-        else {
-            document.getElementById("upgrade8").style.border = "4px solid gold"
-        }
-        if (game.gold < this.cost[9]) {
-            document.getElementById("upgrade9").style.border = "4px solid grey"
-        }
-        else {
-            document.getElementById("upgrade9").style.border = "4px solid gold"
-        }
-        if (game.gold < this.cost[10]) {
-            document.getElementById("upgrade10").style.border = "4px solid grey"
-        }
-        else {
-            document.getElementById("upgrade10").style.border = "4px solid gold"
+
+    },
+
+    data: {
+        saveGame: function(){
+            var gameSave = {
+                gold: game.gold,
+                clickValue: game.clickValue,
+                totalClicks: game.clicked,
+                totalGold: game.totalGold,
+                goldPerSecond: game.goldPerSecond,
+                upgradeCost: game.upgrade.cost,
+                upgradeAmount: game.upgrade.amount,
+                upgradeIncome: game.upgrade.income,
+                perkOwned: game.perk.owned
+            }
+
+            localStorage.setItem("gameSave", JSON.stringify(gameSave))
+        },
+
+        loadGame: function(){
+            var savedGame = JSON.parse(localStorage.getItem("gameSave"))
+            if (localStorage.getItem("gameSave") !== null){
+                if (typeof savedGame.gold !== "undefined") game.gold = savedGame.gold
+                if (typeof savedGame.clickValue !== "undefined") game.clickValue = savedGame.clickValue
+                if (typeof savedGame.totalClicks !== "undefined") game.clicked = savedGame.totalClicks
+                if (typeof savedGame.totalGold !== "undefined") game.totalGold = savedGame.totalGold
+                if (typeof savedGame.goldPerSecond !== "undefined") game.goldPerSecond = savedGame.goldPerSecond
+                if (typeof savedGame.upgradeCost !== "undefined") {
+                    for (i=0; i < savedGame.upgradeCost.length; i++){
+                        game.upgrade.cost[i] = savedGame.upgradeCost[i];
+                    }
+                }
+                if (typeof savedGame.upgradeAmount !== "undefined") {
+                    for (i=0; i < savedGame.upgradeAmount.length; i++){
+                        game.upgrade.amount[i] = savedGame.upgradeAmount[i];
+                    }
+                }
+                if (typeof savedGame.upgradeIncome !== "undefined") {
+                    for (i=0; i < savedGame.upgradeIncome.length; i++){
+                        game.upgrade.income[i] = savedGame.upgradeIncome[i];
+                    }
+                }
+                if (typeof savedGame.perkOwned !== "undefined") {
+                    for (i=0; i < savedGame.perkOwned.length; i++){
+                        game.perk.owned[i] = savedGame.perkOwned[i];
+                    }
+                }
+            }
+        },
+
+        resetGame: function() {
+            if (confirm("Are you Sure you want to reset you game?")) {
+                var gameSave = {};
+                localStorage.setItem("gameSave", JSON.stringify(gameSave));
+                location.reload();
+            }
+        },
+
+        debug: function(gold, clickval, index, amount){
+            game.gold += gold
+            game.clickValue += clickval
+            game.upgrade.amount[index] += amount
+            var message = "Done"
+            return message
         }
     }
 }
 
 
-var perk = {
-    cost: [
-        1000,
-        5000,
-        500,
-        1000,
-        1500,
-        2000,
-        300,
-        500,
-        700,
-        900,
-        1200,
-        1500,
-        3000
-    ],
 
-    output: [
-        2,
-        2,
-        2,
-        5,
-        5,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2
-    ],
 
-    index: [
-        0,
-        0,
-        "none",
-        "none",
-        "none",
-        "none",
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7
-    ],
-
-    need: [
-        10,
-        100,
-        350,
-        500,
-        1000,
-        1500,
-        10,
-        10,
-        10,
-        10,
-        10,
-        10,
-        10
-    ],
-
-    purchased: [
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false
-    ],
-
-    purchase: function (index) {
-        if (game.gold >= this.cost[index]) {
-            game.gold -= this.cost[index];
-            if (this.index[index] == "none") {
-                game.clickValue += this.output[index]
-                this.purchased[index] = true;
-            }
-            else {
-                upgrade.income[this.index[index]] = upgrade.income[this.index[index]] * 2;
-                this.purchased[index] = true;
-                display.updatePerk()
-            }
-        }
+/*function canvas_spawn(){
+    document.getElementById("sectionMiddle").innerHTML = ""
+    // 0
+    document.getElementById("sectionMiddle").innerHTML += `<canvas class="canvas" id="canvas0" width="530px"></canvas>`
+    for (i=0; i<game.upgrade.amount[i]; i++){
+        document.getElementById("sectionMiddle").innerHTML += `<img id="img0-${i}" src="cursor.webp" height="64px">`
     }
-
+    const canvas0 = document.getElementById("canvas0");
+    const ctx0 = canvas0.getContext('2d')
+    for (i=0; i<game.upgrade.amount[i]; i++){
+        const img0 = document.getElementById("img0-"+i);
+    }
+    for (i=0; i<game.upgrade.amount[i]; i++){
+        ctx0.drawImage(img0, 10+i, 10, innerWidth=64, innerHeight=64)
+    }
 }
+*/
 
 var display = {
-    updateScore: function () {
-        document.getElementById("gold").innerHTML = game.gold;
-        document.title = game.gold + " Gold - Gold Clicker"
+    updateScore: function(){
+        document.getElementById("gold").innerHTML = Math.ceil(game.gold);
+        document.title  = Math.ceil(game.gold) + " Gold - Gold Clicker"
+        document.getElementById("gps").innerHTML = game.upgrade.goldPerSecond()
     },
 
-    updateScorePerSection: function () {
-        game.gold += game.getScorePerSecond()
-        game.totalGold += game.getScorePerSecond()
-    },
-
-    updateStats: function () {
-        document.getElementById("click-value").innerHTML = "Click Value: " + game.clickValue
-        document.getElementById("click-total").innerHTML = "Total Clicks: " + game.totalClicks
-        document.getElementById("gold-per-second").innerHTML = "Gold Per Second: " + game.getScorePerSecond()
-        document.getElementById("total-gold").innerHTML = "Total Gold: " + game.totalGold
-    },
-
-    updateUpgrade: function () {
-        document.getElementById("upgrade-cost0").innerHTML = upgrade.cost[0]
-        document.getElementById("upgrade-amount0").innerHTML = upgrade.amount[0]
-        document.getElementById("upgrade-cost1").innerHTML = upgrade.cost[1]
-        document.getElementById("upgrade-amount1").innerHTML = upgrade.amount[1]
-        document.getElementById("upgrade-cost2").innerHTML = upgrade.cost[2]
-        document.getElementById("upgrade-amount2").innerHTML = upgrade.amount[2]
-        document.getElementById("upgrade-cost3").innerHTML = upgrade.cost[3]
-        document.getElementById("upgrade-amount3").innerHTML = upgrade.amount[3]
-        document.getElementById("upgrade-cost4").innerHTML = upgrade.cost[4]
-        document.getElementById("upgrade-amount4").innerHTML = upgrade.amount[4]
-        document.getElementById("upgrade-cost5").innerHTML = upgrade.cost[5]
-        document.getElementById("upgrade-amount5").innerHTML = upgrade.amount[5]
-        document.getElementById("upgrade-cost6").innerHTML = upgrade.cost[6]
-        document.getElementById("upgrade-amount6").innerHTML = upgrade.amount[6]
-        document.getElementById("upgrade-cost7").innerHTML = upgrade.cost[7]
-        document.getElementById("upgrade-amount7").innerHTML = upgrade.amount[7]
-        document.getElementById("upgrade-cost8").innerHTML = upgrade.cost[8]
-        document.getElementById("upgrade-amount8").innerHTML = upgrade.amount[8]
-        document.getElementById("upgrade-cost9").innerHTML = upgrade.cost[9]
-        document.getElementById("upgrade-amount9").innerHTML = upgrade.amount[9]
-        document.getElementById("upgrade-cost10").innerHTML = upgrade.cost[10]
-        document.getElementById("upgrade-amount10").innerHTML = upgrade.amount[10]
-
-    },
-
-    updatePerk: function () {
-        if (perk.purchased[0] == false) {
-            if (game.gold >= perk.cost[0]) {
-                if (upgrade.amount[perk.index[0]] >= 10) {
-                    document.getElementById("perk1").innerHTML = `<img src="cursor.webp" title="Stone Clicker: Clickers will upgrade income to 2 Cost:1000" onclick="perk.purchase(0)">`
-                }
-            }
-        }
-        else {
-            document.getElementById("perk1").innerHTML = ""
-        }
-        if (perk.purchased[1] == false) {
-            if (game.gold >= perk.cost[1]) {
-                if (upgrade.amount[perk.index[1]] >= 100) {
-                    document.getElementById("perk2").innerHTML = `<img src="cursor.webp" title="Silver Clicker: Clickers will upgrade income to 2 Cost:5000" onclick="perk.purchase(1)">`
-                }
-            }
-        }
-        else {
-            document.getElementById("perk2").innerHTML = ""
-        }
-        if (perk.purchased[2] == false) {
-            if (game.gold >= perk.cost[2]) {
-                if (game.totalClicks >= perk.need[2]) {
-                    document.getElementById("perk3").innerHTML = `<img src="clicker.jpg" title="Stone Cursor: Click value +2 cost:500" onclick="perk.purchase(2)">`
-                }
-            }
-        }
-        else {
-            document.getElementById("perk3").innerHTML = ""
-        }
-        if (perk.purchased[3] == false) {
-            if (game.gold >= perk.cost[3]) {
-                if (game.totalClicks >= perk.need[3]) {
-                    document.getElementById("perk4").innerHTML = `<img src="clicker.jpg" title="Silver Cursor: Click value +5 cost:1000" onclick="perk.purchase(3)">`
-                }
-            }
-        }
-        else {
-            document.getElementById("perk4").innerHTML = ""
-        }
-        if (perk.purchased[4] == false) {
-            if (game.gold >= perk.cost[4]) {
-                if (game.totalClicks >= perk.need[4]) {
-                    document.getElementById("perk5").innerHTML = `<img src="clicker.jpg" title="Gold Cursor: Click value +5 cost:1500" onclick="perk.purchase(4)">`
-                }
-            }
-        }
-        else {
-            document.getElementById("perk5").innerHTML = ""
-        }
-        if (perk.purchased[5] == false) {
-            if (game.gold >= perk.cost[5]) {
-                if (game.totalClicks >= perk.need[5]) {
-                    document.getElementById("perk6").innerHTML = `<img src="clicker.jpg" title="Diamond Cursor: Click value +2 cost:2000" onclick="perk.purchase(5)">`
-                }
-            }
-        }
-        else {
-            document.getElementById("perk6").innerHTML = ""
-        }
-        if (perk.purchased[6] == false) {
-            if (game.gold >= perk.cost[6]) {
-                if (upgrade.amount[perk.index[6]] >= perk.need[6]) {
-                    document.getElementById("perk7").innerHTML = `<img src="shovel.png" title="Double Shovels: shovel value times 2 cost:300" onclick="perk.purchase(6)">`
-                }
-            }
-        }
-        else {
-            document.getElementById("perk7").innerHTML = ""
-        }
-        if (perk.purchased[7] == false) {
-            if (game.gold >= perk.cost[7]) {
-                if (upgrade.amount[perk.index[7]] >= perk.need[7]) {
-                    document.getElementById("perk8").innerHTML = `<img src="mining_cart.jpg" title="Double Carts: Carts value times 2 cost:500" onclick="perk.purchase(7)">`
-                }
-            }
-        }
-        else {
-            document.getElementById("perk8").innerHTML = ""
-        }
-        if (perk.purchased[8] == false) {
-            if (game.gold >= perk.cost[8]) {
-                if (upgrade.amount[perk.index[8]] >= perk.need[8]) {
-                    document.getElementById("perk9").innerHTML = `<img src="mountain.jpg" title="Double Mountains: Mountains value times 2 cost:700" onclick="perk.purchase(8)">`
-                }
-            }
-        }
-        else {
-            document.getElementById("perk9").innerHTML = ""
-        }
-        if (perk.purchased[9] == false) {
-            if (game.gold >= perk.cost[9]) {
-                if (upgrade.amount[perk.index[9]] >= perk.need[9]) {
-                    document.getElementById("perk10").innerHTML = `<img src="bank.png" title="Double Bank: Bank value times 2 cost:900" onclick="perk.purchase(9)">`
-                }
-            }
-        }
-        else {
-            document.getElementById("perk10").innerHTML = ""
-        }
-        if (perk.purchased[10] == false) {
-            if (game.gold >= perk.cost[10]) {
-                if (upgrade.amount[perk.index[10]] >= perk.need[10]) {
-                    document.getElementById("perk11").innerHTML = `<img src="safe.png" title="Double Safe: Safe value times 2 cost:1200" onclick="perk.purchase(10)">`
-                }
-            }
-        }
-        else {
-            document.getElementById("perk11").innerHTML = ""
-        }
-        if (perk.purchased[11] == false) {
-            if (game.gold >= perk.cost[11]) {
-                if (upgrade.amount[perk.index[11]] >= perk.need[11]) {
-                    document.getElementById("perk12").innerHTML = `<img src="gold-coin.png" title="Double Gold Coin: Gold Coin value times 2 cost:1500" onclick="perk.purchase(11)">`
-                }
-            }
-        }
-        else {
-            document.getElementById("perk12").innerHTML = ""
-        }
-        if (perk.purchased[12] == false) {
-            if (game.gold >= perk.cost[12]) {
-                if (upgrade.amount[perk.index[12]] >= perk.need[11]) {
-                    document.getElementById("perk13").innerHTML = `<img src="rocket.png" title="Double Rocker: Rocket value times 2 cost:3000" onclick="perk.purchase(12)">`
-                }
-            }
-        }
-        else {
-            document.getElementById("perk13").innerHTML = ""
-        }
-
-
-    },
-
-    updateSuper: function () {
-        if (super_upgrade.purchased[0] == true) {
-            document.querySelector(".super-click").style.border = "4px solid green"
-        }
-        if (super_upgrade.purchased[1] == true) {
-            document.querySelector(".super-gold").style.border = "4px solid green"
-        }
-        if (super_upgrade.purchased[2] == true) {
-            document.querySelector(".super-click1").style.border = "4px solid green"
-        }
-        if (super_upgrade.purchased[3] == true) {
-            document.querySelector(".super-gold1").style.border = "4px solid green"
-        }
+    gps: function(){
+        game.gold += game.upgrade.goldPerSecond()
     }
 }
 
-var super_upgrade = {
-    name: [
-        "Super Click",
-        "Super Gold",
-        "Super Click 1",
-        "Super Gold 1"
-    ],
-
-    cost: [
-        1000000,
-        5000000,
-        10000000,
-        50000000
-    ],
-
-    purchased: [
-        false,
-        false,
-        false,
-        false
-    ],
-
-    purchase: function (index) {
-        if (game.gold >= this.cost[index]) {
-            if (this.purchased[index] == false) {
-                game.gold -= this.cost[index]
-                this.purchased[index] = true
-                if (this.name[index] == "Super Click") {
-                    game.clickValue += 10000
-                }
-                if (this.name[index] == "Super Click 1") {
-                    game.clickValue += 100000
-                }
-                display.updateSuper()
-            }
-        }
-    }
-}
-
-function saveGame() {
-    var gameSave = {
-        gold: game.gold,
-        clickValue: game.clickValue,
-        totalClicks: game.totalClicks,
-        totalGold: game.totalGold,
-        scorePerSedond: game.scorePerSecond,
-        upgradeCost: upgrade.cost,
-        upgradeAmount: upgrade.amount,
-        upgradeIncome: upgrade.income,
-        perkPurchased: perk.purchased,
-        superUpgradePurchased: super_upgrade.purchased
-
-    }
-    localStorage.setItem("gameSave", JSON.stringify(gameSave))
-}
-
-function loadGame() {
-    var savedGame = JSON.parse(localStorage.getItem("gameSave"));
-    if (localStorage.getItem("gameSave") !== null) {
-        if (typeof savedGame.gold !== "undefined") game.gold = savedGame.gold;
-        if (typeof savedGame.totalClicks !== "undefined") game.totalClicks = savedGame.totalClicks;
-        if (typeof savedGame.clickValue !== "undefined") game.clickValue = savedGame.clickValue;
-        if (typeof savedGame.totalGold !== "undefined") game.totalGold = savedGame.totalGold;
-        if (typeof savedGame.scorePerSecond !== "undefined") game.scorePerSecond = savedGame.scorePerSecond;
-        if (typeof savedGame.upgradeCost !== "undefined") {
-            for (i = 0; i < savedGame.upgradeCost.length; i++) {
-                upgrade.cost[i] = savedGame.upgradeCost[i];
-            }
-        }
-        if (typeof savedGame.upgradeAmount !== "undefined") {
-            for (i = 0; i < savedGame.upgradeAmount.length; i++) {
-                upgrade.amount[i] = savedGame.upgradeAmount[i];
-            }
-        }
-        if (typeof savedGame.upgradeIncome !== "undefined") {
-            for (i = 0; i < savedGame.upgradeIncome.length; i++) {
-                upgrade.income[i] = savedGame.upgradeIncome[i];
-            }
-        }
-        if (typeof savedGame.perkPurchased !== "undefined") {
-            for (i = 0; i < savedGame.perkPurchased.length; i++) {
-                perk.purchased[i] = savedGame.perkPurchased[i];
-            }
-        }
-        if (typeof savedGame.superUpgradePurchased !== "undefined") {
-            for (i = 0; i < savedGame.superUpgradePurchased.length; i++) {
-                super_upgrade.purchased[i] = savedGame.superUpgradePurchased[i];
-            }
-        }
-    }
-}
-
-function resetGame() {
-    if (confirm("Are you Sure you want to reset you game?")) {
-        var gameSave = {};
-        localStorage.setItem("gameSave", JSON.stringify(gameSave));
-        location.reload();
-    }
-}
-
-window.onload = function () {
+window.onload = function(){
+    game.data.loadGame()
     display.updateScore()
-    display.updateStats()
-    display.updateUpgrade()
-    display.updatePerk()
-    display.updateScorePerSection()
-    display.updatePerk()
-    display.updateSuper()
-    loadGame()
-    saveGame()
-    alert("Site will not be updated for maybe 1 week or so, undergoing many changes!!! Will be back, this version is old.... Save data might not work on new version.")
+    game.upgrade.spawn()
+    game.perk.spawn()
+    game.upgrade.goldPerSecond()
+    game.data.saveGame()
 }
 
-setInterval(function () {
+var tick = setInterval(function() {
     display.updateScore()
-    display.updateScorePerSection()
-    display.updateStats()
-    display.updateUpgrade()
-    display.updatePerk()
-    display.updateSuper()
-    upgrade.buyable()
+    game.upgrade.spawn()
+    game.perk.spawn()
+    game.upgrade.goldPerSecond()
+    display.gps()
 }, 1000)
 
-setInterval(function () {
-    saveGame()
+var tick30 = setInterval(function(){
+    game.data.saveGame()
+    console.log("Game Saved")
 }, 30000)
