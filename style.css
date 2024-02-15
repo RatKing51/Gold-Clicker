@@ -6,6 +6,8 @@
 body {
     background-color: gray;
     overflow: hidden;
+    width: 100vw;
+    height: 100vh;
 }
 
 .big {
@@ -18,7 +20,7 @@ body {
 
 #sectionLeft {
     position: absolute;
-    top: 64px;
+    top: 10%;
     max-width: 30%;
     border: 4px solid gold;
     border-radius: 10px;
